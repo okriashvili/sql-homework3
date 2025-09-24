@@ -1,0 +1,70 @@
+-- create table brand (
+-- 	brand_id serial primary key, 
+-- 	brand_name varchar not null
+-- )
+
+-- insert into brand(brand_name) values
+-- 	('BMW'),
+-- 	('Mercedes'),
+-- 	('AUDI'),
+-- 	('VolksWagen')
+
+-- create table fuel_type (
+-- 	fuel_type_id serial primary key,
+-- 	fuel_type_name varchar not null unique
+-- )
+
+-- insert into fuel_type (fuel_type_name) values
+-- 	('diesel'),
+-- 	('gasoline'),
+-- 	('hybrid'),
+-- 	('electric')
+	
+
+-- create table model (
+-- 	model_id serial primary key,
+-- 	model_name varchar not null,
+-- 	brand_id int references brand(brand_id) on delete cascade,
+-- 	fuel_type_id int references fuel_type(fuel_type_id) on delete set null
+-- )
+
+-- insert into model(model_name, brand_id, fuel_type_id) values
+-- 	('M8', 1, 4),
+-- 	('CLS', 2, 2),
+-- 	('Touran', 4, 1),
+-- 	('A8', 3, 3),
+-- 	('i8', 1, 4),
+-- 	('GLE', 2, 2),
+-- 	('passat', 4, 1),
+-- 	('Q5', 3, 2)
+
+
+-- select brand_name, model_name, fuel_type_name from model
+-- join brand on brand.brand_id = model.brand_id
+-- join fuel_type on fuel_type.fuel_type_id = model.fuel_type_id
+
+
+
+-- create table vehicle(
+-- 	model_id int references model(model_id) on delete cascade,
+-- 	create_year int  not null,
+-- 	vincode varchar(20) not null unique,
+-- 	price numeric(10, 2) not null check(price > 0)
+-- )
+
+
+-- insert into vehicle(create_year, vincode, price, model_id) values
+-- 	(2012, 'vn21312313', 4500, 3),
+-- 	(2024, 'bm34131413413', 120000, 4),
+-- 	(2023, 'vdn3431413', 55000, 1),
+-- 	(2016, 'vmc321e1341241', 18000, 2),
+-- 	(2021, 'v9b13414134', 25000, 5),
+-- 	(2019, 'vg3221312412', 30000,6),
+-- 	(2016, 'vpw34134314134', 6500, 7),
+-- 	(2017, 'vbc13e134314', 12000, 8)
+
+select brand_name, model_name, fuel_type_name, create_year, vincode, price from vehicle
+join model on model.model_id = vehicle.model_id
+join brand on brand.brand_id = model.brand_id
+join fuel_type on fuel_type.fuel_type_id = model.fuel_type_id
+
